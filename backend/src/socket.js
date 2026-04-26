@@ -2,10 +2,10 @@ import { Server } from "socket.io";
 
 let io;
 
-export function initSocket(server) {
+export function initSocket(server, corsOrigin) {
   io = new Server(server, {
     cors: {
-      origin: "*",
+      origin: corsOrigin || "*",
     },
   });
 

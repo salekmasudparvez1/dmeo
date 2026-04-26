@@ -4,7 +4,9 @@ import { Play, Square, Activity, Copy } from "lucide-react";
 import { motion } from "framer-motion";
 
 
-const socket = io("http://localhost:4000");
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
+const socket = io(API_URL);
 
 export default function App() {
   const [url, setUrl] = useState("");
@@ -40,7 +42,7 @@ export default function App() {
   }, [logs]);
 
   const start = async () => {
-    const res = await fetch("http://localhost:4000/start", {
+    const res = await fetch(`${API_URL}/start`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url }),
@@ -55,7 +57,7 @@ export default function App() {
   const stop = async () => {
     if (!jobId) return;
 
-    await fetch("http://localhost:4000/stop", {
+    await fetch(`${API_URL}/stop`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ jobId }),
